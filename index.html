@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTF Internship Hub — Rowan University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Design system ─────────────────────────────────────── */
+:root {
+  --scarlet:    #CC0033;
+  --scarlet-dk: #9A0025;
+  --gold:       #F4B428;
+  --gold-lt:    #FFF4D6;
+  --navy:       #1A2744;
+  --navy-lt:    #2D3F6B;
+  --ink:        #1C1C2E;
+  --mist:       #F4F5F7;
+  --chalk:      #FAFAFA;
+  --fog:        #E8E9ED;
+  --mid:        #6B7280;
+  --white:      #FFFFFF;
+  --green:      #0A7A5A;
+  --green-lt:   #E6F4EF;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  --radius:  12px;
+  --radius-lg: 20px;
+  --shadow:  0 2px 16px rgba(0,0,0,.08);
+  --shadow-md: 0 8px 32px rgba(0,0,0,.12);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--chalk);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 60px;
+  border-bottom: 3px solid var(--scarlet);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: .75rem;
+  font-family: var(--font-display); font-size: 1.1rem;
+  color: var(--white); text-decoration: none;
+}
+.nav-brand span { color: var(--gold); }
+.nav-links {
+  display: flex; gap: .25rem; list-style: none;
+}
+.nav-links a {
+  color: rgba(255,255,255,.75);
+  text-decoration: none; font-size: .82rem; font-weight: 500;
+  padding: .4rem .75rem; border-radius: 6px;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+.nav-cta {
+  background: var(--scarlet); color: var(--white) !important;
+  border-radius: 6px; padding: .4rem .9rem !important;
+}
+.nav-cta:hover { background: var(--scarlet-dk) !important; }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  background: var(--navy);
+  padding: 6rem 2.5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 80% 50%, rgba(204,0,51,.15) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 20% 80%, rgba(244,180,40,.08) 0%, transparent 70%);
+}
+.hero-grid {
+  position: relative;
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(244,180,40,.15); border: 1px solid rgba(244,180,40,.3);
+  color: var(--gold); font-size: .78rem; font-weight: 600;
+  padding: .35rem .75rem; border-radius: 20px;
+  letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.8rem);
+  color: var(--white); line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero-lead {
+  font-size: 1.08rem; color: rgba(255,255,255,.7);
+  max-width: 500px; margin-bottom: 2rem;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--font-body); font-size: .9rem; font-weight: 600;
+  padding: .75rem 1.5rem; border-radius: 8px;
+  text-decoration: none; transition: all .2s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--scarlet); color: var(--white); }
+.btn-primary:hover { background: var(--scarlet-dk); transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.35); }
+.btn-outline:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.6); }
+
+/* Hero stats card */
+.hero-stats {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+}
+.stat-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+.stat-item { text-align: center; padding: 1rem .5rem; }
+.stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,.1); }
+.stat-row + .stat-row { border-top: 1px solid rgba(255,255,255,.1); }
+.stat-num {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 900;
+  line-height: 1; margin-bottom: .3rem;
+}
+.stat-label { font-size: .78rem; color: rgba(255,255,255,.55); font-weight: 500; letter-spacing: .02em; }
+.stat-red .stat-num   { color: #FF6680; }
+.stat-gold .stat-num  { color: var(--gold); }
+.stat-green .stat-num { color: #4ADEAA; }
+.stat-blue .stat-num  { color: #7EB8FF; }
+
+/* Alert bar */
+.alert-bar {
+  background: var(--scarlet); color: var(--white);
+  text-align: center; padding: .65rem 2rem;
+  font-size: .85rem; font-weight: 500;
+}
+.alert-bar a { color: var(--gold); }
+
+/* ── Sections ─────────────────────────────────────────── */
+section { padding: 5rem 2.5rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--scarlet);
+  margin-bottom: .6rem;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.15; margin-bottom: 1rem; color: var(--navy);
+}
+.section-sub {
+  font-size: 1rem; color: var(--mid); max-width: 580px; line-height: 1.7;
+}
+.section-header { margin-bottom: 3rem; }
+
+/* ── Why Intern strip ─────────────────────────────────── */
+.why-strip {
+  background: var(--navy); color: var(--white);
+}
+.why-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  background: rgba(255,255,255,.08);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.why-card {
+  background: var(--navy-lt);
+  padding: 2.25rem 1.75rem;
+  transition: background .2s;
+}
+.why-card:hover { background: #3a5080; }
+.why-icon { font-size: 2rem; margin-bottom: .8rem; }
+.why-stat {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 900;
+  color: var(--gold); line-height: 1; margin-bottom: .4rem;
+}
+.why-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: .5rem; }
+.why-card p { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+
+/* ── Quote carousel ───────────────────────────────────── */
+.quotes-section { background: var(--mist); }
+.quotes-track {
+  display: flex; gap: 1.5rem;
+  overflow-x: auto; padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.quotes-track::-webkit-scrollbar { display: none; }
+.quote-card {
+  flex: 0 0 340px; scroll-snap-align: start;
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 2rem; box-shadow: var(--shadow);
+  position: relative;
+  border-top: 4px solid var(--scarlet);
+  transition: transform .2s, box-shadow .2s;
+}
+.quote-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.quote-mark {
+  font-family: var(--font-display); font-size: 4rem; line-height: .7;
+  color: var(--scarlet); opacity: .25;
+  position: absolute; top: 1.2rem; right: 1.5rem;
+}
+.quote-text {
+  font-size: .95rem; line-height: 1.65; color: var(--ink);
+  margin-bottom: 1.25rem; font-style: italic;
+}
+.quote-meta { font-size: .78rem; font-weight: 600; color: var(--mid); }
+.quote-meta strong { color: var(--scarlet); }
+.quote-scroll-hint {
+  text-align: center; margin-top: 1.5rem;
+  font-size: .8rem; color: var(--mid);
+}
+
+/* ── Alumni ticker ────────────────────────────────────── */
+.ticker-section {
+  background: var(--scarlet); padding: 1.5rem 0; overflow: hidden;
+}
+.ticker-label {
+  text-align: center; color: rgba(255,255,255,.6);
+  font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: .75rem;
+}
+.ticker-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: .5rem;
+  color: var(--white); font-size: .88rem; font-weight: 500;
+  padding: 0 2.5rem;
+}
+.ticker-item::before {
+  content: '▶'; font-size: .55rem; color: var(--gold); opacity: .8;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Opportunity hub ──────────────────────────────────── */
+.hub-section { background: var(--chalk); }
+.tab-nav {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--fog);
+  padding-bottom: .5rem;
+}
+.tab-btn {
+  font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+  padding: .55rem 1.1rem; border-radius: 6px 6px 0 0;
+  border: none; cursor: pointer; transition: all .15s;
+  background: transparent; color: var(--mid);
+  position: relative; bottom: -2px; border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+  color: var(--scarlet); border-bottom-color: var(--scarlet);
+  background: rgba(204,0,51,.04);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Org grid */
+.org-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.org-card {
+  background: var(--white); border-radius: var(--radius);
+  border: 1.5px solid var(--fog);
+  padding: 1.25rem 1.5rem;
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: border-color .2s, box-shadow .2s;
+  position: relative;
+}
+.org-card:hover {
+  border-color: var(--scarlet);
+  box-shadow: 0 4px 20px rgba(204,0,51,.1);
+}
+.org-badge {
+  position: absolute; top: .9rem; right: .9rem;
+  font-size: .65rem; font-weight: 700; letter-spacing: .06em;
+  padding: .2rem .5rem; border-radius: 4px;
+  text-transform: uppercase;
+}
+.badge-oncampus { background: var(--green-lt); color: var(--green); }
+.badge-philly   { background: #EEF2FF; color: #3730A3; }
+.badge-nj       { background: #FFF7ED; color: #C2410C; }
+.badge-ny       { background: #FDF2F8; color: #9D174D; }
+.badge-dc       { background: #F0FDF4; color: #166534; }
+.badge-national { background: #F9F5FF; color: #6D28D9; }
+.org-name { font-weight: 700; font-size: 1rem; color: var(--navy); padding-right: 4rem; }
+.org-type { font-size: .78rem; color: var(--mid); }
+.org-link {
+  font-size: .8rem; color: var(--scarlet); font-weight: 600;
+  text-decoration: none; margin-top: .4rem; display: inline-flex;
+  align-items: center; gap: .25rem;
+}
+.org-link:hover { text-decoration: underline; }
+
+/* ── Dynamic search links ─────────────────────────────── */
+.search-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+.search-card {
+  background: var(--white);
+  border: 1.5px solid var(--fog); border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: .75rem;
+  transition: all .2s;
+}
+.search-card:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+.search-icon { font-size: 1.8rem; }
+.search-title { font-weight: 700; font-size: 1rem; color: var(--navy); }
+.search-desc { font-size: .82rem; color: var(--mid); line-height: 1.5; }
+.search-links { display: flex; flex-direction: column; gap: .4rem; margin-top: .25rem; }
+.search-links a {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .82rem; font-weight: 600; color: var(--scarlet);
+  text-decoration: none; padding: .45rem .75rem;
+  background: rgba(204,0,51,.04); border-radius: 6px;
+  transition: background .15s;
+}
+.search-links a:hover { background: rgba(204,0,51,.1); }
+.search-links a::before { content: '↗'; font-size: .9rem; }
+
+/* ── Process accordion ────────────────────────────────── */
+.process-section { background: var(--mist); }
+.steps-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--fog); border-radius: var(--radius-lg); overflow: hidden;
+}
+.step-card {
+  background: var(--white); padding: 2rem 2.25rem;
+  display: flex; gap: 1.25rem;
+}
+.step-num {
+  width: 2.5rem; height: 2.5rem; min-width: 2.5rem;
+  background: var(--navy); color: var(--white);
+  border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: .85rem; font-weight: 500;
+}
+.step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; color: var(--navy); }
+.step-card p { font-size: .85rem; color: var(--mid); line-height: 1.6; }
+
+/* ── Requirements ─────────────────────────────────────── */
+.req-section { background: var(--navy); color: var(--white); }
+.req-section .section-title { color: var(--white); }
+.req-section .section-sub { color: rgba(255,255,255,.6); }
+.req-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+.req-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius); padding: 1.75rem;
+}
+.req-card h3 {
+  font-size: .9rem; font-weight: 700; color: var(--gold);
+  text-transform: uppercase; letter-spacing: .06em;
+  margin-bottom: .9rem;
+}
+.req-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.req-list li {
+  font-size: .88rem; color: rgba(255,255,255,.8);
+  display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5;
+}
+.req-list li::before {
+  content: '✓'; color: #4ADEAA; font-weight: 700; font-size: .8rem;
+  margin-top: .15rem; flex-shrink: 0;
+}
+.req-note {
+  margin-top: 2rem; padding: 1.25rem 1.5rem;
+  background: rgba(244,180,40,.1); border: 1px solid rgba(244,180,40,.25);
+  border-radius: var(--radius); font-size: .85rem; color: rgba(255,255,255,.75);
+}
+.req-note strong { color: var(--gold); }
+
+/* ── Course credit ────────────────────────────────────── */
+.credit-table {
+  width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+}
+.credit-table th {
+  text-align: left; font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--mid); padding: .6rem 1rem;
+  border-bottom: 2px solid var(--fog);
+}
+.credit-table td {
+  padding: .9rem 1rem; font-size: .9rem; border-bottom: 1px solid var(--fog);
+  vertical-align: top;
+}
+.credit-table tr:last-child td { border-bottom: none; }
+.credit-table tr:hover td { background: var(--mist); }
+.pct-badge {
+  display: inline-block; background: var(--scarlet); color: var(--white);
+  font-size: .72rem; font-weight: 700; padding: .2rem .5rem; border-radius: 4px;
+}
+
+/* ── CTA ──────────────────────────────────────────────── */
+.cta-section {
+  background: linear-gradient(135deg, var(--scarlet), var(--scarlet-dk));
+  color: var(--white); text-align: center;
+  padding: 5rem 2.5rem;
+}
+.cta-section .section-title { color: var(--white); margin-bottom: .75rem; }
+.cta-section .section-sub {
+  color: rgba(255,255,255,.8); max-width: 480px; margin: 0 auto 2.5rem;
+}
+.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: var(--white); color: var(--scarlet); }
+.btn-white:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); }
+.btn-outline-white {
+  background: transparent; color: var(--white);
+  border: 2px solid rgba(255,255,255,.5);
+}
+.btn-outline-white:hover { border-color: var(--white); }
+
+/* ── Footer ───────────────────────────────────────────── */
+footer {
+  background: var(--ink); color: rgba(255,255,255,.5);
+  padding: 2.5rem 2.5rem;
+  font-size: .82rem; text-align: center;
+}
+footer a { color: rgba(255,255,255,.7); }
+footer strong { color: rgba(255,255,255,.9); }
+
+/* ── Animations ───────────────────────────────────────── */
+.fade-in {
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp .6s ease forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in:nth-child(2) { animation-delay: .1s; }
+.fade-in:nth-child(3) { animation-delay: .2s; }
+.fade-in:nth-child(4) { animation-delay: .3s; }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid, .req-grid { grid-template-columns: 1fr; }
+  nav .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .why-grid { grid-template-columns: 1fr; }
+  section { padding: 3.5rem 1.25rem; }
+  .hero { padding: 4rem 1.25rem 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Alert bar ──────────────────────────────────────── -->
+<div class="alert-bar">
+  🔥 New opportunities posted — <a href="#opportunities">See the latest listings →</a>
+</div>
+
+<!-- ── Nav ───────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" href="#">
+    <span>RTF</span> Internship Hub
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Intern</a></li>
+    <li><a href="#opportunities">Find Opportunities</a></li>
+    <li><a href="#process">The Process</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#credit">For Credit</a></li>
+    <li><a href="#apply" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">🎬 Rowan RTF · Department of Radio, Television & Film</div>
+      <h1>Your career starts before <em>graduation.</em></h1>
+      <p class="hero-lead">Rowan RTF students have interned at CBS News, NBC Universal, Fox 29, NFL Films, Warner Bros, the Philadelphia Eagles, and hundreds of organizations across the Mid-Atlantic. This hub makes finding yours easier.</p>
+      <div class="hero-actions">
+        <a href="#opportunities" class="btn btn-primary">↓ Find Opportunities</a>
+        <a href="#process" class="btn btn-outline">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-row">
+        <div class="stat-item stat-gold">
+          <div class="stat-num">93%</div>
+          <div class="stat-label">of interns called it important to career</div>
+        </div>
+        <div class="stat-item stat-green">
+          <div class="stat-num">87%</div>
+          <div class="stat-label">of RTF interns said it helped clarify their career direction</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item stat-blue">
+          <div class="stat-num">120+</div>
+          <div class="stat-label">organizations have hosted RTF students</div>
+        </div>
+        <div class="stat-item stat-blue">
+          <div class="stat-num">45%</div>
+          <div class="stat-label">of RTF students plan to intern before graduating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why intern ─────────────────────────────────────── -->
+<section class="why-strip" id="why">
+  <div class="container">
+    <div class="section-header" style="text-align:center; margin-bottom:2.5rem;">
+      <div class="section-label" style="color:var(--gold);">The Numbers Don't Lie</div>
+      <h2 class="section-title" style="color:var(--white);">Why an internship changes everything</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-in">
+        <div class="why-icon">💼</div>
+        <div class="why-stat">65%</div>
+        <h3>Higher hire rate <sup style="font-size:.5em;opacity:.6">①</sup></h3>
+        <p>Candidates with internship experience receive job offers at significantly higher rates than those without, across media and production fields.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">💰</div>
+        <div class="why-stat">$10K+</div>
+        <h3>Salary premium <sup style="font-size:.5em;opacity:.6">②</sup></h3>
+        <p>Graduates with relevant internship experience earn an average of $10,000 more in their first position than those entering without it.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🎯</div>
+        <div class="why-stat">93%</div>
+        <h3>Said it mattered <sup style="font-size:.5em;opacity:.6">③</sup></h3>
+        <p>Of Rowan RTF students who completed internships, 93% rated the experience as important or very important to their career development.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🤝</div>
+        <div class="why-stat">70%</div>
+        <h3>Jobs come through networks <sup style="font-size:.5em;opacity:.6">④</sup></h3>
+        <p>Up to 70% of jobs in media and entertainment are filled through personal connections — internships are where those relationships begin.</p>
+      </div>
+    </div>
+    <p style="margin-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.38);line-height:1.7;max-width:860px;margin-left:auto;margin-right:auto;text-align:center;">
+      ① NACE Job Outlook Survey (2024) — internship experience and offer rates across professional fields. &nbsp;
+      ② NACE Student Survey (2023) — median starting salary, internship completers vs. non-completers. &nbsp;
+      ③④ LinkedIn & Lou Adler Research (2017); widely cited in media industry career literature. ③④ Survey source: Rowan RTF Student Survey, Spring 2026 (n=93 current students; n=15 with internship experience).
+    </p>
+  </div>
+</section>
+
+<!-- ── Quotes ─────────────────────────────────────────── -->
+<section class="quotes-section" id="stories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Student Voices</div>
+      <h2 class="section-title">What past RTF interns said</h2>
+      <p class="section-sub">From the RTF student survey and internship program records. Scroll to read more →</p>
+    </div>
+    <div class="quotes-track">
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">My NFL Films internship has been a dream come true. My goals were to network with everyone I could, find a mentor, and create content I could be proud of and take from Films. I achieved all three.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · NFL Films · Mount Laurel, NJ</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">If you had asked me on my first day if I'd expect to get hired as a morning show producer and on-air DJ at the radio station I listened to as a child — I wouldn't have believed you. They took a chance on me before I even graduated.</p>
+        <div class="quote-meta"><strong>RTF Alum</strong> · 93.3 WMMR · Philadelphia (hired after internship)</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">It is now almost May and I can say that this internship has been one of the best growth experiences for me since starting college. I have learned invaluable skills and how to carry myself as a professional.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · All That's Good Production Company · Philadelphia</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Little did I know that all of those expectations would not only be met, but far exceeded. In this time, I not only sharpened my skills, but strengthened my mind in a way where I could continue to overcome challenges on a larger scale.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · 6abc WPVI · Philadelphia</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">My time with the Delaware Blue Coats was something I will never forget. I got to see exactly what ESPN-level production looks like from the inside — switchers, cameras, audio rigs. Everything clicked.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Delaware Blue Coats (NBA G-League) · Wilmington, DE</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Overall, this internship has taught me a lot about working in a professional setting and ultimately makes me so much more confident to go out into the real world and show them what I've got.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Internship Reflection Paper</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Despite being just an intern, I knew from day one that this would be a place I wanted to make a career for myself. My college career is coming to an end, and they want me to stick around and help produce their content.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · All That's Good Production Company · Philadelphia</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">I learned that getting an internship earlier in college rather than later is a smart decision — it helps you learn quicker, gain more connections, and open doors you didn't even know existed yet.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Expressway Cinema Rentals · Philadelphia</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Every game, I learned new skills, new work ethics, new ways to be efficient, and more about how MLB works. It also helped me build and expand my network in ways I hadn't anticipated going in.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Philadelphia Phillies / Phanavision · Citizens Bank Park</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">This internship and my experiences covering live events taught me to double down on skills I was building at Rowan — and then I was teaching colleagues back on campus what I'd learned in the field.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Live Event Production Internship</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">The networking aspect is very good — everyone at All That's Good has connections with people that are definitely good to know, and I think this could help me in my future if I ever get in a rut.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · All That's Good Production Company · Philadelphia</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Many times in this internship I was told I was going down the right path, and every time I heard that it encouraged me to be better, to do more, and to learn as much as humanly possible.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Production Internship Reflection</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">This internship transpired tremendous growth both professionally and personally. I got to network with producers, DPs, gaffers, actors, and crew members across different production roles.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Video Production Company Internship</div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Without this internship, I feel I still would've been wondering how to get experience in my industry. I think this allowed me to better myself and my skills — while also being something to put on my resume.</p>
+        <div class="quote-meta"><strong>RTF Student</strong> · Penn Sports Network</div>
+      </div>
+
+    </div>
+    <p class="quote-scroll-hint">← Drag or swipe to scroll →</p>
+  </div>
+</section>
+
+<!-- ── Alumni ticker ──────────────────────────────────── -->
+<div class="ticker-section">
+  <p class="ticker-label">RTF Students Have Interned At</p>
+  <div style="overflow:hidden;">
+    <div class="ticker-track" id="ticker">
+      <span class="ticker-item">CBS News · 60 Minutes</span>
+      <span class="ticker-item">The Tonight Show</span>
+      <span class="ticker-item">Warner Bros</span>
+      <span class="ticker-item">NFL Films</span>
+      <span class="ticker-item">NBC Sports Philadelphia</span>
+      <span class="ticker-item">Fox 29 WTXF</span>
+      <span class="ticker-item">6abc WPVI</span>
+      <span class="ticker-item">NBC10 WCAU</span>
+      <span class="ticker-item">PHL17</span>
+      <span class="ticker-item">Philadelphia Eagles</span>
+      <span class="ticker-item">Entertainment Tonight</span>
+      <span class="ticker-item">Center City Film &amp; Video</span>
+      <span class="ticker-item">Inside Edition</span>
+      <span class="ticker-item">93.3 WMMR</span>
+      <span class="ticker-item">iHeartMedia</span>
+      <span class="ticker-item">Comcast Spectacor</span>
+      <span class="ticker-item">Alkemy-X Post</span>
+      <span class="ticker-item">Silvercup Studios</span>
+      <span class="ticker-item">JTWO Films</span>
+      <span class="ticker-item">Glass Entertainment Group</span>
+      <span class="ticker-item">All That's Good Productions</span>
+      <span class="ticker-item">Half Yard Productions</span>
+      <span class="ticker-item">Townsquare Media</span>
+      <span class="ticker-item">Beasley Media Group</span>
+      <span class="ticker-item">WHYY</span>
+      <span class="ticker-item">Philadelphia Film Society</span>
+      <span class="ticker-item">Virgil Films</span>
+      <span class="ticker-item">The Wendy Williams Show</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item">CBS News · 60 Minutes</span>
+      <span class="ticker-item">The Tonight Show</span>
+      <span class="ticker-item">Warner Bros</span>
+      <span class="ticker-item">NFL Films</span>
+      <span class="ticker-item">NBC Sports Philadelphia</span>
+      <span class="ticker-item">Fox 29 WTXF</span>
+      <span class="ticker-item">6abc WPVI</span>
+      <span class="ticker-item">NBC10 WCAU</span>
+      <span class="ticker-item">PHL17</span>
+      <span class="ticker-item">Philadelphia Eagles</span>
+      <span class="ticker-item">Entertainment Tonight</span>
+      <span class="ticker-item">Center City Film &amp; Video</span>
+      <span class="ticker-item">Inside Edition</span>
+      <span class="ticker-item">93.3 WMMR</span>
+      <span class="ticker-item">iHeartMedia</span>
+      <span class="ticker-item">Comcast Spectacor</span>
+      <span class="ticker-item">Alkemy-X Post</span>
+      <span class="ticker-item">Silvercup Studios</span>
+      <span class="ticker-item">JTWO Films</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Opportunities ──────────────────────────────────── -->
+<section class="hub-section" id="opportunities">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Opportunity Hub</div>
+      <h2 class="section-title">Where to start your search</h2>
+      <p class="section-sub">Organized by geography — from right here on campus to the broader Mid-Atlantic region. Every category also links to live job searches.</p>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('oncampus', this)">🏛️ On Campus</button>
+      <button class="tab-btn" onclick="showTab('philly', this)">🏙️ Philadelphia</button>
+      <button class="tab-btn" onclick="showTab('southjersey', this)">🌿 South Jersey</button>
+      <button class="tab-btn" onclick="showTab('nyc', this)">🗽 New York City</button>
+      <button class="tab-btn" onclick="showTab('dc', this)">🏛️ D.C. / Mid-Atlantic</button>
+
+      <button class="tab-btn" onclick="showTab('livesearch', this)">🔍 Live Search</button>
+    </div>
+
+    <!-- ON CAMPUS -->
+    <div class="tab-panel active" id="tab-oncampus">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;padding:.9rem 1.1rem;background:var(--green-lt);border-radius:var(--radius);border-left:3px solid var(--green);">
+        <strong style="color:var(--green);">💡 Start here.</strong> On-campus internships are especially valuable for commuter students and those navigating busy schedules. Several Rowan departments actively create media and need student talent.
+      </p>
+      <div class="org-grid">
+        <div class="org-card">
+          <span class="org-badge badge-oncampus">On Campus</span>
+          <div class="org-name">Rowan University Marketing &amp; Communications</div>
+          <div class="org-type">Video production · social media · photography · content creation</div>
+          <a class="org-link" href="https://sites.google.com/rowan.edu/rtf-careers/contact-us" target="_blank">Ask RTF coordinator ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-oncampus">On Campus</span>
+          <div class="org-name">WGLS-FM 89.7 Rowan Radio</div>
+          <div class="org-type">On-air personality · production · event coverage · station management</div>
+          <a class="org-link" href="https://www.rowan.edu/home/wgls" target="_blank">rowan.edu/wgls ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-oncampus">On Campus</span>
+          <div class="org-name">RTF Department — Social Media &amp; Content</div>
+          <div class="org-type">Run the department's social media · student spotlights · event video · direct connection to faculty</div>
+          <a class="org-link" href="https://sites.google.com/rowan.edu/rtf-careers/contact-us" target="_blank">Contact coordinator ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-oncampus">On Campus</span>
+          <div class="org-name">Rowan Athletics — Live Production</div>
+          <div class="org-type">Camera operation · live switching · sports video · broadcast production for home games</div>
+          <a class="org-link" href="https://rowangladiators.com" target="_blank">rowangladiators.com ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHILLY -->
+    <div class="tab-panel" id="tab-philly">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;padding:.9rem 1.1rem;background:#EEF2FF;border-radius:var(--radius);border-left:3px solid #3730A3;">
+        <strong style="color:#3730A3;">🚆 45 min by PATCO.</strong> Philadelphia is one of the top media markets on the East Coast — home to four major network affiliates, a thriving production scene, and sports media operations.
+      </p>
+      <div class="org-grid">
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">6abc WPVI-TV</div>
+          <div class="org-type">Network TV · news production · social media · programming</div>
+          <a class="org-link" href="https://6abc.com" target="_blank">6abc.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Fox 29 WTXF</div>
+          <div class="org-type">TV news · promotions · creative services · production</div>
+          <a class="org-link" href="https://www.fox29.com" target="_blank">fox29.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">NBC10 WCAU</div>
+          <div class="org-type">NBC affiliate · news · digital media · engineering/operations</div>
+          <a class="org-link" href="https://www.nbcphiladelphia.com" target="_blank">nbcphiladelphia.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">PHL17 WPHL-TV</div>
+          <div class="org-type">Independent TV · news · morning show production</div>
+          <a class="org-link" href="https://phl17.com" target="_blank">phl17.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">NBC Sports Philadelphia</div>
+          <div class="org-type">Sports media · video editing · digital content · studio production</div>
+          <a class="org-link" href="https://www.nbcsports.com/philadelphia" target="_blank">nbcsports.com/philly ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Philadelphia Eagles</div>
+          <div class="org-type">NFL video · press conference coverage · social content · game coverage</div>
+          <a class="org-link" href="https://www.philadelphiaeagles.com/team/front-office/internships" target="_blank">eagles.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Center City Film &amp; Video (CCFV)</div>
+          <div class="org-type">45+ years, 87 staff · commercial &amp; corporate production · PA work · editing · consistent Rowan internship history</div>
+          <a class="org-link" href="https://www.ccfv.com" target="_blank">ccfv.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">JTWO Films</div>
+          <div class="org-type">Emmy-winning commercial &amp; documentary studio · Netflix-certified post house · active internship program each semester</div>
+          <a class="org-link" href="https://jtwo.tv/internships" target="_blank">jtwo.tv/internships ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">WHYY PBS</div>
+          <div class="org-type">Public media · documentary · editing · digital journalism</div>
+          <a class="org-link" href="https://whyy.org/about/jobs-and-internships/" target="_blank">whyy.org ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Philadelphia Film Society</div>
+          <div class="org-type">Film events · social media · marketing · PR</div>
+          <a class="org-link" href="https://filmadelphia.org" target="_blank">filmadelphia.org ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">iHeartMedia Philadelphia</div>
+          <div class="org-type">Radio · audio production · promotions · morning show PA</div>
+          <a class="org-link" href="https://iheart.com/internships" target="_blank">iheartmedia.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Comcast Spectacor</div>
+          <div class="org-type">Arena video · fan experience · sports production · content creation</div>
+          <a class="org-link" href="https://www.comcastspectacor.com" target="_blank">comcastspectacor.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Alkemy X</div>
+          <div class="org-type">Premium post-production &amp; VFX · Philadelphia + NYC · credits include Wednesday (Netflix), Walking Dead (AMC), Marvelous Mrs. Maisel (Amazon)</div>
+          <a class="org-link" href="https://alkemy-x.com/careers" target="_blank">alkemy-x.com/careers ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">All That's Good Production Company</div>
+          <div class="org-type">Narrative &amp; commercial production · editing · post · strong Rowan alumni network within the company</div>
+          <a class="org-link" href="https://www.allthatsgoods.com" target="_blank">allthatsgoods.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-philly">Philadelphia</span>
+          <div class="org-name">Glass Entertainment Group</div>
+          <div class="org-type">Top-100 global unscripted producer · Netflix, Hulu, A&amp;E, CNN · PA, transcription, development, production</div>
+          <a class="org-link" href="https://www.glassentertainmentgroup.com" target="_blank">glassentertainmentgroup.com ↗</a>
+        </div>
+      <div class="org-card" style="border-top-color:var(--scarlet);">
+          <span class="org-badge" style="background:#FFF0F3;color:var(--scarlet);">📋 Job Board</span>
+          <div class="org-name" style="padding-right:5rem;">Greater Philadelphia Film Office — Job Board</div>
+          <div class="org-type">Official regional film commission · internships, PA roles, crew calls for PA &amp; South Jersey productions · updated weekly</div>
+          <a class="org-link" href="https://film.org/job-type/interns/" target="_blank">film.org/jobs — Interns ↗</a>
+          <a class="org-link" href="https://film.org/jobs/" target="_blank">film.org/jobs — All listings ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOUTH JERSEY -->
+    <div class="tab-panel" id="tab-southjersey">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;padding:.9rem 1.1rem;background:#FFF7ED;border-radius:var(--radius);border-left:3px solid #C2410C;">
+        <strong style="color:#C2410C;">🏡 Close to home.</strong> South Jersey has a growing media ecosystem, and these organizations have all hosted RTF interns or have strong track records with Rowan students.
+      </p>
+      <div class="org-grid">
+        <div class="org-card">
+          <span class="org-badge badge-nj">South Jersey</span>
+          <div class="org-name">SNJ Today</div>
+          <div class="org-type">Local TV news · scripts · field production · reporting assistance</div>
+          <a class="org-link" href="https://snjtoday.com" target="_blank">snjtoday.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">South Jersey</span>
+          <div class="org-name">NFL Films (Mount Laurel)</div>
+          <div class="org-type">Studio operations · live show PA · control room shadowing · logistics</div>
+          <a class="org-link" href="https://www.nfl.com/internships" target="_blank">nfl.com/internships ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">South Jersey</span>
+          <div class="org-name">Townsquare Media</div>
+          <div class="org-type">Radio group · promotions · events · office production</div>
+          <a class="org-link" href="https://townsquaremedia.com/internships" target="_blank">townsquaremedia.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">New Jersey</span>
+          <div class="org-name">Beasley Media Group</div>
+          <div class="org-type">Radio network · production · promotions · commercial writing</div>
+          <a class="org-link" href="https://bbgi.com/careers" target="_blank">bbgi.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">New Jersey</span>
+          <div class="org-name">Longport Media</div>
+          <div class="org-type">Radio · board op · promotions · Atlantic City market</div>
+          <a class="org-link" href="https://longportmedia.com" target="_blank">longportmedia.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">New Jersey</span>
+          <div class="org-name">New Jersey 101.5 (Townsquare)</div>
+          <div class="org-type">Radio promotions · events · community outreach</div>
+          <a class="org-link" href="https://nj1015.com" target="_blank">nj1015.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-nj">New Jersey</span>
+          <div class="org-name">TV One Productions</div>
+          <div class="org-type">Video production · shooting · editing · scripting</div>
+          <a class="org-link" href="mailto:nicolae@rowan.edu">Ask RTF Coordinator ↗</a>
+        </div>
+      <div class="org-card" style="border-top-color:var(--scarlet);">
+          <span class="org-badge" style="background:#FFF0F3;color:var(--scarlet);">📋 Job Board</span>
+          <div class="org-name" style="padding-right:5rem;">Greater Philadelphia Film Office — Job Board</div>
+          <div class="org-type">Official regional film commission · internships, PA roles, crew calls for PA &amp; South Jersey productions · updated weekly</div>
+          <a class="org-link" href="https://film.org/job-type/interns/" target="_blank">film.org/jobs — Interns ↗</a>
+          <a class="org-link" href="https://film.org/jobs/" target="_blank">film.org/jobs — All listings ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NYC -->
+    <div class="tab-panel" id="tab-nyc">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;padding:.9rem 1.1rem;background:#FDF2F8;border-radius:var(--radius);border-left:3px solid #9D174D;">
+        <strong style="color:#9D174D;">🚄 90 min by NJ Transit.</strong> New York is the world's media capital. RTF students have interned at major networks, production companies, and studios. A NYC summer internship can change your trajectory.
+      </p>
+      <div class="org-grid">
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">CBS News / 60 Minutes</div>
+          <div class="org-type">Research · video editing · digital content · news production</div>
+          <a class="org-link" href="https://www.paramount.com/careers/internships" target="_blank">paramount.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">NBCUniversal / The Tonight Show</div>
+          <div class="org-type">PA duties · research · studio production · show logistics</div>
+          <a class="org-link" href="https://www.nbcunicareers.com/internships" target="_blank">nbcunicareers.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">ABC-TV / The Chew / 20/20</div>
+          <div class="org-type">Production · audience coordination · script supervision</div>
+          <a class="org-link" href="https://jobs.disneycareers.com/early-career" target="_blank">disneycareers.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">Inside Edition (CBS)</div>
+          <div class="org-type">News · field production · research · administrative</div>
+          <a class="org-link" href="https://www.insideedition.com/about/internships" target="_blank">insideedition.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">NY1 / Spectrum News</div>
+          <div class="org-type">Sports production · editing highlights · field reporter assistance</div>
+          <a class="org-link" href="https://spectrumnews1.com/nj/new-jersey/jobs" target="_blank">spectrumnews1.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">Silvercup Studios</div>
+          <div class="org-type">Equipment management · facilities · production logistics</div>
+          <a class="org-link" href="https://silvercupstudios.com/contact" target="_blank">silvercupstudios.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">D.C. / New York</span>
+          <div class="org-name">Half Yard Productions</div>
+          <div class="org-type">Reality &amp; documentary TV · Say Yes to the Dress (TLC) · research, logging, PA · Bethesda/NYC offices</div>
+          <a class="org-link" href="https://halfyardproductions.com" target="_blank">halfyardproductions.com ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-ny">New York</span>
+          <div class="org-name">Entertainment Tonight (CBS)</div>
+          <div class="org-type">Field shoots · premieres · segment writing · research</div>
+          <a class="org-link" href="https://www.paramount.com/careers/internships" target="_blank">paramount.com ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DC / MID-ATLANTIC -->
+    <div class="tab-panel" id="tab-dc">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;padding:.9rem 1.1rem;background:#F0FDF4;border-radius:var(--radius);border-left:3px solid #166534;">
+        <strong style="color:#166534;">🏛️ Mid-Atlantic region.</strong> Washington D.C., Baltimore, Wilmington, and the broader Mid-Atlantic corridor offer a range of media, documentary, and broadcast opportunities.
+      </p>
+      <div class="org-grid">
+        <div class="org-card">
+          <span class="org-badge badge-dc">Washington D.C.</span>
+          <div class="org-name">National Public Radio (NPR)</div>
+          <div class="org-type">Audio production · journalism · digital content · research</div>
+          <a class="org-link" href="https://www.npr.org/about-npr/181948735/internship-program" target="_blank">npr.org/internships ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-dc">Washington D.C.</span>
+          <div class="org-name">CNN / Discovery / Warner Bros. Discovery</div>
+          <div class="org-type">News production · documentary · research · digital</div>
+          <a class="org-link" href="https://careers.warnerbros.com/early-careers" target="_blank">wbd careers ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-dc">Mid-Atlantic</span>
+          <div class="org-name">WETA PBS Washington</div>
+          <div class="org-type">Documentary · public television · production</div>
+          <a class="org-link" href="https://weta.org/about-weta/internships" target="_blank">weta.org ↗</a>
+        </div>
+        <div class="org-card">
+          <span class="org-badge badge-dc">Delaware</span>
+          <div class="org-name">Wilmington Blue Rocks (Minor League Baseball)</div>
+          <div class="org-type">Radio production · pregame/postgame shows · sports content</div>
+          <a class="org-link" href="https://milb.com/wilmington" target="_blank">milb.com/wilmington ↗</a>
+        </div>
+      </div>
+    </div>
+    <!-- LIVE SEARCH -->
+    <div class="tab-panel" id="tab-livesearch">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.75rem;padding:.9rem 1.1rem;background:var(--mist);border-radius:var(--radius);border-left:3px solid var(--navy);">
+        <strong style="color:var(--navy);">🔴 Live results.</strong> Each link searches Google Jobs or LinkedIn for that specific field and location right now. Click <strong>Follow</strong> on any search to get matching new listings sent to your inbox automatically.
+      </p>
+      <div class="search-grid">
+
+        <div class="search-card">
+          <div class="search-icon">🎬</div>
+          <div class="search-title">Film Production</div>
+          <div class="search-desc">PA roles, production internships, on-set experience.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=film+production+internship+Philadelphia+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=film+production+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=film+production+internship+%22Washington+DC%22+OR+Baltimore+OR+%22Mid-Atlantic%22&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://www.google.com/search?q=film+production+internship+remote&udm=8" target="_blank">Remote</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">📺</div>
+          <div class="search-title">TV &amp; Broadcast News</div>
+          <div class="search-desc">Network affiliates, news production, camera and digital roles.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=television+broadcast+news+internship+Philadelphia+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=television+broadcast+news+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=television+broadcast+news+internship+%22Washington+DC%22+OR+Baltimore&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://tvjobs.com" target="_blank">TVJobs.com (all markets)</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">🎙️</div>
+          <div class="search-title">Audio, Radio &amp; Podcasting</div>
+          <div class="search-desc">Radio stations, podcast studios, audio post, live sound.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=radio+audio+podcast+internship+Philadelphia+OR+%22South+Jersey%22+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=radio+audio+podcast+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=radio+audio+podcast+internship+%22Washington+DC%22+OR+Baltimore&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://www.google.com/search?q=radio+audio+podcast+internship+remote&udm=8" target="_blank">Remote</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">⚽</div>
+          <div class="search-title">Sports Media</div>
+          <div class="search-desc">Team video departments, sports networks, live event production.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=sports+media+video+production+internship+Philadelphia+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=sports+media+video+production+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=sports+media+video+production+internship+%22Washington+DC%22+OR+Baltimore&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://www.teamworkonline.com/sports-jobs/sports-internships" target="_blank">TeamWork Online — Sports Internships</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">✂️</div>
+          <div class="search-title">Post Production &amp; Editing</div>
+          <div class="search-desc">Editorial, color, VFX, motion graphics, finishing, audio post.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=post+production+editing+internship+Philadelphia+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=post+production+editing+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=post+production+editing+internship+%22Washington+DC%22+OR+Baltimore&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://www.google.com/search?q=post+production+editing+internship+remote&udm=8" target="_blank">Remote</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">📱</div>
+          <div class="search-title">Social Media &amp; Digital Content</div>
+          <div class="search-desc">Content creation, social strategy, branded video, agency work.</div>
+          <div class="search-links">
+            <a href="https://www.google.com/search?q=social+media+video+content+internship+Philadelphia+OR+%22New+Jersey%22&udm=8" target="_blank">Philly &amp; South Jersey</a>
+            <a href="https://www.google.com/search?q=social+media+video+content+internship+%22New+York%22+OR+NYC&udm=8" target="_blank">New York City</a>
+            <a href="https://www.google.com/search?q=social+media+video+content+internship+%22Washington+DC%22+OR+Baltimore&udm=8" target="_blank">D.C. / Mid-Atlantic</a>
+            <a href="https://www.google.com/search?q=social+media+video+content+internship+remote&udm=8" target="_blank">Remote</a>
+          </div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-icon">📋</div>
+          <div class="search-title">All Film &amp; Media — Job Boards</div>
+          <div class="search-desc">Curated boards covering the region's full film and media industry.</div>
+          <div class="search-links">
+            <a href="https://film.org/job-type/interns/" target="_blank">Greater Philadelphia Film Office — Interns</a>
+            <a href="https://joinhandshake.com/login" target="_blank">Handshake — Rowan login</a>
+            <a href="https://www.indeed.com/jobs?q=media+video+film+intern&l=Philadelphia%2C+PA" target="_blank">Indeed — Philly media interns</a>
+            <a href="https://www.linkedin.com/jobs/search/?keywords=film+media+intern&location=Philadelphia+metro+area" target="_blank">LinkedIn — Philly metro media</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+<!-- ── Process ────────────────────────────────────────── -->
+<section class="process-section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Step by Step</div>
+      <h2 class="section-title">How to land and complete your internship</h2>
+      <p class="section-sub">From your first conversation to your final portfolio — here's the full roadmap.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Define your goals and constraints</h3>
+          <p>Where do you want to work — Philadelphia, South Jersey, NYC? What field? Film production, news, audio, social media? Be honest about your schedule and transportation. These decisions shape everything else.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Update your resume and reel</h3>
+          <p>Your resume should highlight your strongest projects, any technical skills (Premiere, Avid, After Effects), and relevant coursework. Visit the Rowan Career Center for resume review. See <a href="https://academics.rowan.edu/ccca/departments/radioTelevisionFilm/internship/example_resumes.pdf" style="color:var(--scarlet)">resume examples</a> from successful RTF students.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Talk to the RTF Internship Coordinator</h3>
+          <p>Before you search, make an appointment. The coordinator can confirm your eligibility, connect you with companies that have expressed interest in Rowan students, and help you avoid common mistakes. Reach out to <strong>nicole@rowan.edu</strong>.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Search and apply</h3>
+          <p>Use this hub, LinkedIn, Handshake, and the company websites listed here. Talk to seniors who have interned. Research the company before applying — know what they make and why you want to work there.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div>
+          <h3>Nail your interview</h3>
+          <p>Many internships involve multiple rounds. Be professional, be specific about your skills, and come with two or three portfolio examples ready to discuss. Remember — you are representing Rowan RTF.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div>
+          <h3>Register for academic credit</h3>
+          <p>Once you have an accepted offer, complete the <a href="https://www.rowan.edu/ric-edelman-college/departments/radio-television-film/internship/internshipapprovalform-2017" style="color:var(--scarlet)">Application Form</a> and submit it to the coordinator. They will help you enroll in the internship course. Do not start your internship before completing this step.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Requirements ───────────────────────────────────── -->
+<section class="req-section" id="requirements">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" style="color:var(--gold);">Am I Eligible?</div>
+      <h2 class="section-title">Prerequisites &amp; Requirements</h2>
+      <p class="section-sub">You must satisfy these requirements before your internship can be registered for academic credit. Check in with your advisor if you're unsure where you stand.</p>
+    </div>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>General Requirements</h3>
+        <ul class="req-list">
+          <li>Active RTF major at Rowan University</li>
+          <li>75 or more earned credit hours</li>
+          <li>Minimum 2.5 GPA overall</li>
+          <li>Accepted an internship offer from an approved organization</li>
+          <li>Completed and submitted the Internship Approval Form</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Production Specialization Track</h3>
+        <ul class="req-list">
+          <li>Applied Media Aesthetics (completed or currently enrolled)</li>
+          <li>Film Production I (completed or currently enrolled)</li>
+          <li>Television Production (completed or currently enrolled)</li>
+          <li>Foundations of Media Production</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Critical Studies Track</h3>
+        <ul class="req-list">
+          <li>College Composition I</li>
+          <li>College Composition II</li>
+          <li>Applied Media Aesthetics</li>
+          <li>Non-production internship site approved by coordinator</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Credit Options</h3>
+        <ul class="req-list">
+          <li>3 credits = 120 internship hours (one semester)</li>
+          <li>6 credits = 240 internship hours (full semester or two terms)</li>
+          <li>Summer, fall, and spring semesters all eligible</li>
+          <li>Remote and hybrid internships may qualify — ask coordinator</li>
+        </ul>
+      </div>
+    </div>
+    <div class="req-note">
+      <strong>Exception policy:</strong> In rare cases, internships may be approved without all prerequisites with sign-off from your Faculty Advisor, the Internship Coordinator, and the internship site. Reach out early if you have questions about your eligibility — don't assume you're not ready.
+    </div>
+  </div>
+</section>
+
+<!-- ── Course credit breakdown ────────────────────────── -->
+<section id="credit" style="background:var(--chalk);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">For Academic Credit</div>
+      <h2 class="section-title">What's required to earn your grade</h2>
+      <p class="section-sub">Your internship cohort does not meet as a class, but you have four graded components beyond your on-site work.</p>
+    </div>
+    <table class="credit-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Weight</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Daily Log</strong></td>
+          <td><span class="pct-badge">10%</span></td>
+          <td>A typed, detailed daily log covering all 120 or 240 hours of your internship. Record what you did, learned, and observed each day.</td>
+        </tr>
+        <tr>
+          <td><strong>Reflection Paper</strong></td>
+          <td><span class="pct-badge">30%</span></td>
+          <td>A 4–5 page paper describing your internship in detail: your experience, the value of the placement, skills developed, and honest thoughts on how the experience could improve.</td>
+        </tr>
+        <tr>
+          <td><strong>Portfolio</strong></td>
+          <td><span class="pct-badge">20%</span></td>
+          <td>A portfolio of work produced during your internship — video, audio, scripts, web pages, social posts, or other deliverables. Examples are available from the coordinator.</td>
+        </tr>
+        <tr>
+          <td><strong>Supervisor Evaluation</strong></td>
+          <td><span class="pct-badge">40%</span></td>
+          <td>Your internship supervisor will be contacted for a confidential evaluation of your performance. This is the highest-weighted component — your professionalism at the internship site matters.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="cta-section" id="apply">
+  <div class="container" style="max-width:700px;">
+    <div class="section-label" style="color:rgba(255,255,255,.6);justify-content:center;display:flex;">Ready to Start?</div>
+    <h2 class="section-title" style="text-align:center;">Your first step is a conversation</h2>
+    <p class="section-sub">Email the RTF Internship Coordinator to make an appointment, confirm your eligibility, and get pointed toward organizations that are actively looking for Rowan students.</p>
+    <div class="cta-buttons">
+      <a href="mailto:nicolae@rowan.edu" class="btn btn-white">✉ Email the Coordinator</a>
+      <a href="https://www.rowan.edu/ric-edelman-college/departments/radio-television-film/internship/internshipapprovalform-2017" class="btn btn-outline-white" target="_blank">📋 Application Form</a>
+      <a href="https://academics.rowan.edu/ccca/departments/radioTelevisionFilm/internship/example_resumes.pdf" class="btn btn-outline-white" target="_blank">📄 Resume Examples</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom:.4rem;">
+      <strong>RTF Internship Program</strong> · Department of Radio, Television &amp; Film · Rowan University · Glassboro, NJ
+    </p>
+    <p>
+      Questions? <a href="mailto:nicolae@rowan.edu">nicolae@rowan.edu</a> · 
+      <a href="https://sites.google.com/rowan.edu/rtf-careers/job-board">RTF Job Board</a> · 
+      <a href="https://www.rowan.edu/ric-edelman-college/departments/radio-television-film/">RTF Department</a>
+    </p>
+    <p style="margin-top:.75rem;font-size:.75rem;opacity:.5;">
+      Internship listings do not imply Rowan University endorsement. Always verify opportunities on secure, trusted sites.
+    </p>
+  </div>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  // Hide all panels
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // Show selected
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.why-card, .step-card, .org-card, .search-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
